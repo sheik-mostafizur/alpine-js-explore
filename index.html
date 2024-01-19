@@ -252,6 +252,105 @@
     </div>
   </td>
 
+  <section>
+    <div
+      class="fixed inset-0 z-50 flex flex-col items-center justify-end overflow-y-auto bg-black bg-opacity-80 sm:justify-start"
+      x-data="{modal:false}" x-show="modal"
+      x-on:modal-overlay.window="if ($event.detail.id == 'modalDataInfoDetails') modal=true"
+      x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-500"
+      x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+
+      <div class="w-full px-2 my-20 transition-all transform sm:max-w-2xl lg:max-w-[800px]" role="dialog"
+        aria-modal="true" aria-labelledby="modal-headline" x-show="modal"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 -translate-y-4 sm:translate-y-4"
+        x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-4 sm:translate-y-4" x-on:click.away="modal=false">
+        <div class="bg-white rounded shadow-sm overflow-hidden">
+          <div class="modalbox-head relative bg-[#C5ECD4] p-4 border-b border-[#C5ECD4]">
+
+            <div class="flex flex-col items-start gap-2 pr-4">
+              <h3 class="text-[16px] text-[#000000] ">দাতার তথ্য</h3>
+            </div>
+
+            <span
+              class="absolute right-4 top-4 h-[30px] w-[30px] flex items-center justify-center rounded cursor-pointer"
+              @click="modal = false">
+            </span>
+          </div>
+
+          <div class="modalbox-body bg-white px-6 py-6 sm:py-6 sm:px-8">
+
+            <div class="block p-[20px] border border-[#D9D9D9] bg-[#FBFBFB] rounded-[6px]">
+
+              <div class="flex flex-wrap py-[10px] mb-2 items-center justify-between gap-4">
+                <h4 class="text-[13px] text-[#000]">গ্রহীতা - ১ )
+                  মালিকানার
+                  ধরন: ব্যক্তি মালিকানাধীন</h4>
+                <span class="inline-flex items-center gap-[8px] text-[13px] text-[#000]">
+                  <img class="w-[26px] h-[26px]" src="./assets/images/ac-land/logo-ec-bangladesh.svg" alt="ECB"> জাতীয়
+                  পরিচয়পত্র যাচাইকৃত</span>
+              </div>
+
+              <div class="w-full grid gap-4 grid-col-1 lg:grid-cols-1 items-start relative">
+                <div class="w-full block lg:gap-4 lg:inline-flex relative">
+                  <div class="user-photo w-[160px] min-w-[120px] my-[10px]">
+                    <div class="block border border-[#EBEEF2] bg-[#F4F6F9] mb-4">
+                      <img class="w-full block h-auto" src="./assets/images/dashboard-option/user-sample-photo.jpg"
+                        alt="User-Photo">
+                    </div>
+                  </div>
+                  <div class="user-desc">
+                    <div
+                      class="inline-flex py-2 text-[12px] w-full flex-wrap items-start justify-start text-left flex-shrink">
+                      <label class="profile-info-label w-[50%]">নাম</label>
+                      <span class="text-[#545D69] w-[50%]">:
+                        জুবায়ের
+                        নাজিম</span>
+                    </div>
+                    <div
+                      class="inline-flex py-2 text-[12px] w-full flex-wrap items-start justify-start text-left flex-shrink">
+                      <label class="profile-info-label w-[50%]">পিতার
+                        নাম</label>
+                      <span class="text-[#545D69] w-[50%]">:
+                        অরুন
+                        কুমার মালাকার</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button x-data="{id:'modalDataInfoDetails'}" x-on:click="$dispatch('modal-overlay',{id})"
+      class="h-[30px] btn-blue-outline mx-auto">
+      বিস্তারিত দেখুন 1
+    </button>
+    <button x-data="{id:'modalDataInfoDetails'}" x-on:click="$dispatch('modal-overlay',{id});"
+      class="h-[30px] btn-blue-outline mx-auto">
+      বিস্তারিত দেখুন 2
+    </button>
+  </section>
+
+  <div x-data="{modal:false}" x-show="modal"
+    x-on:modal-overlay.window="if ($event.detail.id == 'testingBtn') modal=true">
+    <h1 class="display-1">Lorem ipsum dolor sit amet.</h1>
+    <button class="btn btn-danger" @click="modal = false"> Close
+    </button>
+  </div>
+  <button x-data="{id:'testingBtn'}" x-on:click="$dispatch('modal-overlay',{id});"
+    class="btn btn-outline-primary">Button 1</button>
+  <button x-data="{id:'testingBtn'}" x-on:click="$dispatch('modal-overlay',{id});"
+    class="btn btn-outline-primary">Button 2</button>
+
+
+
   <!-- another  for input -->
   <!-- TODO: this is my code but it's not correct -->
   <!-- <div class="container">
@@ -333,9 +432,9 @@
   <form x-data="imgPreview">
     <label for="imgSelect">Select an Image:
       <input type="file" id="imgSelect" accept="image/*" x-ref="myFile" @change="previewFile"></label>
-    <template x-if="imgsrc">
+    <template x-if="imgSrc">
       <p>
-        <img :src="imgsrc" class="imgPreview">
+        <img :src="imgSrc" class="imgPreview">
       </p>
     </template>
   </form>
@@ -361,6 +460,24 @@
 
         toggle() {
           this.show = !this.show
+        }
+      }))
+
+
+      Alpine.data('imgPreview', () => ({
+        imgSrc: null,
+        previewFile() {
+          let file = this.$refs.myFile.files[0];
+          if (!file || file.type.indexOf('image/') === -1) return;
+          this.imgSrc = null;
+          let reader = new FileReader();
+
+          reader.onload = e => {
+            this.imgSrc = e.target.result;
+          }
+
+          reader.readAsDataURL(file);
+
         }
       }))
     });
