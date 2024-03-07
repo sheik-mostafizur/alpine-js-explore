@@ -19,7 +19,16 @@
 </head>
 
 <body>
-  <div class="container" x-data="{isShow: false}">
+
+
+  <div x-data="{toggle:true}">
+    <button @click="toggle=!toggle">Toggle</button>
+    <h1 x-show="toggle" class="bg-green-500">This is toggle text</h1>
+  </div>
+
+
+
+  <div class="container bg-gray-300 shadow p-4 mb-4" x-data="{isShow: false}">
     <div class="row">
       <h2>I am boolean value.</h2>
       <div class="col-md-12 d-flex">
@@ -39,14 +48,14 @@
       </div>
 
       <template x-if="isShow">
-        <div class="col-md-6">
+        <div class="col-md-6 bg-light-subtle">
           <h1>Yes</h1>
           <p>I am showing you.</p>
         </div>
       </template>
 
       <template x-if="!isShow">
-        <div class="col-md-6">
+        <div class="col-md-6 bg-light-subtle">
           <h1>No</h1>
           <p>I am off.</p>
         </div>
